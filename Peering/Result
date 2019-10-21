@@ -3,6 +3,8 @@ https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/amaz
 
 PEERING:
 
+Manual: https://www.youtube.com/watch?v=okBWKQA_1Ws
+
 Idempotence: If peering is created or ip ids are changed on Request's side, then peering need to be approved and route updated on Accepter's side. 
 
 Resources to be created on Requester side: Peering, Route
@@ -43,7 +45,7 @@ https://docs.aws.amazon.com/en_us/vpc/latest/userguide/vpc-region-peering-consum
 https://docs.aws.amazon.com/en_us/vpc/latest/userguide/vpc-inter-region-peering-provider-side.html
 
 Pros: internal traffic
-Cons: perring, nlb are required
+Cons: peering, nlb are required
 
 =========================================================================================================================
 
