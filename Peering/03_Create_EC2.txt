@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create a VPC and a VPC Peering connection using the PeerRole to accept (requester side).
+Parameters:
+  RequesterVpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: Requester
+  AccepterVPCId:
+    Type: AWS::EC2::VPC::Id
+    Description: Accepter
+  SubnetRequesterId:
+    Type: AWS::EC2::Subnet::Id
+    Default: subnet-0698631ceeef0e740
+  SubnetAccepterId:
+    Type: AWS::EC2::Subnet::Id
+    Default: subnet-091611d9734b045b9     
+Resources:  
+  WebInstanceRequester:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-00aa4671cbf840d82
+      KeyName: my-pair-1
+      SecurityGroupIds:
+        - !Ref SSHSecurityGroup
+      SubnetId: !Ref SubnetRequesterId
+  WebInstanceAccepter:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-00aa4671cbf840d82
+      KeyName: my-pair-1
+      SubnetId: !Ref SubnetAccepterId
+      SecurityGroupIds:
+        - !Ref SSHSecurityGroup2
+  SSHSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref RequesterVpcId
+      GroupDescription: Enable SSH access via port 22
+      SecurityGroupIngress:
+      - CidrIp: 0.0.0.0/0
+        FromPort: 22
+        IpProtocol: tcp
+        ToPort: 22   
+  SSHSecurityGroup2:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref AccepterVPCId
+      GroupDescription: Enable SSH access via port 22
+      SecurityGroupIngress:
+      - CidrIp: 10.192.10.0/24
+        FromPort: 22
+        IpProtocol: tcp
+        ToPort: 22    

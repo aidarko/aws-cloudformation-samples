@@ -1,0 +1,8 @@
+Kafka-VPC
+
+EnvironmentName	Kafka	-
+PrivateSubnet1CIDR	11.192.20.0/24	-
+PrivateSubnet2CIDR	11.192.21.0/24	-
+PublicSubnet1CIDR	11.192.10.0/24	-
+PublicSubnet2CIDR	11.192.11.0/24	-
+VpcCIDR	11.192.0.0/16	-

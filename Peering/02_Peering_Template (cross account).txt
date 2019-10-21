@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create a VPC and a VPC Peering connection using the PeerRole to accept (requester side).
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: Requester
+  PeerVPCAccountId:
+    Type: String
+    Default: 388401703192
+  PeerVPCId:
+    Type: AWS::EC2::VPC::Id
+    Description: Accepter
+  PeerRoleArn:
+    Type: String
+Resources:
+  vpcPeeringConnection:
+    Type: 'AWS::EC2::VPCPeeringConnection'
+    Properties:
+      VpcId: !Ref VpcId
+      PeerVpcId: !Ref PeerVPCId
+      PeerOwnerId: !Ref PeerVPCAccountId
+      PeerRoleArn: !Ref PeerRoleArn
+Outputs:
+  VPCId:
+    Value: !Ref vpc
+  VPCPeeringConnectionId:
+    Value: !Ref vpcPeeringConnection

@@ -1,0 +1,59 @@
+Root:
+https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/amazon-vpc-to-amazon-vpc-connectivity-options.html
+
+PEERING:
+
+Idempotence: If peering is created or ip ids are changed on Request's side, then peering need to be approved and route updated on Accepter's side. 
+
+Resources to be created on Requester side: Peering, Route
+
+Risk: IP overlap
+
+Pros: traffic is served within AWS => more secure, minimal pricing, less timeout
+
+Alerting: cloudwatch, runscope test
+
+=========================================================================================================================
+
+VPN connection
+
+URL:
+    https://hackernoon.com/how-to-connect-between-azure-and-aws-with-managed-services-4b03ec334e8a
+
+Pricing: $0.05 per Site-to-Site VPN connection per hour for connections to the ... EU (Frankfurt), EU (Ireland), EU (London), EU (Paris), EU (Stockholm) ... AWS Regions.
+    You create an AWS Client VPN endpoint in US East (Ohio) and associate one subnet to it. You then create 10 Client VPN connections to the AWS Client VPN endpoint that is active for one hour.
+
+    AWS Client VPN endpoint hourly fee: You will be charged for your association to the AWS Client VPN endpoint on an hourly basis. For this AWS Region, the rate is $0.10 per hour.
+    Client VPN connection fee: You had 10 active Client VPN connection for 1 hour. The Client VPN connection charge will result in a charge of $0.50.
+
+Pros: futher integration with Azure
+
+=========================================================================================================================
+
+Private link
+
+[20.10.19 23:20]
+The following are the general steps to enable service consumers to connect to your service.
+Grant permissions to specific service consumers (AWS accounts, IAM users, and IAM roles) to create a connection to your endpoint service.
+A service consumer that has been granted permissions creates an interface endpoint to your service, optionally in each Availability Zone in which you configured your service.
+To activate the connection, accept the interface endpoint connection request. By default, connection requests must be manually accepted. However, you can configure the acceptance settings for your endpoint service so that any connection requests are automatically accepted.
+[20.10.19 23:38]
+https://docs.aws.amazon.com/en_us/vpc/latest/userguide/vpc-region-peering-consumer-side.html
+[20.10.19 23:40]
+https://docs.aws.amazon.com/en_us/vpc/latest/userguide/vpc-inter-region-peering-provider-side.html
+
+Pros: internal traffic
+Cons: perring, nlb are required
+
+=========================================================================================================================
+
+Public IP connection
+
+Solution:
+    - expose IGW on Kafka side
+    - allow inbound traffic only for One Account's Public IP (EIP is required in case of AWS)
+    - add a user to Kafka; ssl is already on
+
+Cons: traffic leaves AWS secured zone 
+
+Consumer: setup EIP?

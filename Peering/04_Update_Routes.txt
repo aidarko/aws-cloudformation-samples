@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create a VPC and a VPC Peering connection using the PeerRole to accept (requester side).
+Parameters:
+  PeeringId:
+    Type: String
+    Default: pcx-06fece24ae4de8984
+  AccepterRouteTable:
+    Type: String
+    Default: rtb-01e09cca9a440a86a
+  RequesterCidr:
+    Type: String
+    Default: 10.192.0.0/16
+  RequesterRouteTable:
+    Type: String
+    Default: rtb-084d58f340bd87180
+  AccepterCidr:
+    Type: String
+    Default: 11.192.0.0/16       
+Resources:
+  AcctepterToRequesterRoute:
+    Type: "AWS::EC2::Route"
+    Properties:
+      DestinationCidrBlock: !Ref RequesterCidr
+      RouteTableId: !Ref AccepterRouteTable
+      VpcPeeringConnectionId: !Ref PeeringId
+  RequesterToAcctepterRoute:
+    Type: "AWS::EC2::Route"
+    Properties:
+      DestinationCidrBlock: !Ref AccepterCidr
+      RouteTableId: !Ref RequesterRouteTable
+      VpcPeeringConnectionId: !Ref PeeringId       
