@@ -1,5 +1,13 @@
-Root:
+Available options:
 https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/amazon-vpc-to-amazon-vpc-connectivity-options.html
+
+1. Peering
+2. VPN
+3. Transit Gateway
+4. PrivateLink
+5. Public IP
+
+=========================================================================================================================
 
 PEERING:
 
@@ -12,8 +20,6 @@ Resources to be created on Requester side: Peering, Route
 Risk: IP overlap
 
 Pros: traffic is served within AWS => more secure, minimal pricing, less timeout
-
-Alerting: cloudwatch, runscope test
 
 =========================================================================================================================
 
@@ -28,7 +34,18 @@ Pricing: $0.05 per Site-to-Site VPN connection per hour for connections to the .
     AWS Client VPN endpoint hourly fee: You will be charged for your association to the AWS Client VPN endpoint on an hourly basis. For this AWS Region, the rate is $0.10 per hour.
     Client VPN connection fee: You had 10 active Client VPN connection for 1 hour. The Client VPN connection charge will result in a charge of $0.50.
 
-Pros: futher integration with Azure
+Pros: on-premise integration
+
+=========================================================================================================================
+
+Transit gateway
+
+URLs:
+    https://docs.aws.amazon.com/vpc/latest/tgw/tgw-getting-started.html#step-attach-vpcs
+    https://cloudsoft.io/aws-transit-gateway-in-action-vpn-to-vpcs-connectivity/
+
+Hub for internal AWS VPNs.
+CIDRs cannot overlap.
 
 =========================================================================================================================
 
@@ -58,4 +75,4 @@ Solution:
 
 Cons: traffic leaves AWS secured zone 
 
-Consumer: setup EIP?
+Consumer: should have public IP to be whitelisted
