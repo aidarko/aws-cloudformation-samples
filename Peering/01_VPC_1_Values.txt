@@ -1,6 +1,6 @@
-OneAccount-VPC
+Requester-VPC
 
-EnvironmentName	OneAccount	-
+EnvironmentName	Requester	-
 PrivateSubnet1CIDR	10.192.20.0/24	-
 PrivateSubnet2CIDR	10.192.21.0/24	-
 PublicSubnet1CIDR	10.192.10.0/24	-
